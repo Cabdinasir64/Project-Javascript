@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Hide/Open</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(to left, rgb(109, 216, 235), rgb(194, 157, 89));
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .box {
+            width: 100%;
+            max-width: 250px;
+            background-color: #fff;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 10px;
+            box-shadow: 0 4px 9px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        .box input {
+            border: none;
+            outline: none;
+            padding: 5px;
+        }
+        .box .fa {
+            cursor: pointer;
+            color: rgb(58, 238, 97);
+        }
+        .box .fa-eye-slash{
+            color: rgb(244, 71, 71);
+        }
+    </style>
+</head>
+<body>
+    <div class="box" id="box">
+        <input type="text" placeholder="Enter Password" id="password">
+        <i class="fa fa-eye" id="toggle"></i>
+    </div>
+
+    <script>
+        let password = document.getElementById("password");
+        let toggle = document.getElementById("toggle");
+
+        toggle.addEventListener("click", () => {
+            if (password.type === "text") {
+                password.type = "password";
+                toggle.classList.add("fa-eye-slash");
+                toggle.classList.remove("fa-eye");
+            } else {
+                password.type = "text";
+                toggle.classList.add("fa-eye");
+                toggle.classList.remove("fa-eye-slash");
+            }
+        });
+    </script>
+</body>
+</html>

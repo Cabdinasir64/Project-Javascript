@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: violet;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 100%;
+            max-width: 350px;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .container h2 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .info {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .info-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .info-group label {
+            font-size: 16px;
+            color: #555;
+        }
+        .info-group input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+        }
+        .info-group input:focus{
+           border: 1px solid rgb(0, 166, 255);
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-size: 16px;
+            color: #555;
+            text-align: center;
+            outline: none;
+        }
+        select:focus{
+            border: 1px solid rgb(0, 166, 255);
+
+        }
+        .result {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .result h3 {
+            font-size: 20px;
+            color: #333;
+            background-color: #dae653;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            width: 100%;
+        }
+        button{
+            margin: 10px 0;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 24px;
+            color: #fff;
+            background-color: rgb(14, 239, 37);
+        }
+        button:hover{
+            color: #ffffffcc;
+            background-color: rgba(14, 239, 37, 0.712);
+
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Calculator</h2>
+        <div class="info">
+            <div class="info-group">
+                <label for="number1">Number1:</label>
+                <input type="number" id="number1">
+            </div>
+            <div class="info-group">
+                <label for="number2">Number2:</label>
+                <input type="number" id="number2">
+            </div>
+        </div>
+        <select>
+            <option value="Add" class="value">Add +</option>
+            <option value="subtract" class="value">Subtract -</option>
+            <option value="divide" class="value">Divide ÷</option>
+            <option value="times" class="value">Times ×</option>
+        </select>
+        <button onclick="Submit()">=</button>
+        <div class="result">
+            <h3 id="result"></h3>
+        </div>
+    </div>
+    <script>
+        function Submit() {
+            let num1 = document.getElementById("number1").value.trim();
+            let num2 = document.getElementById("number2").value.trim();
+            let operation = document.querySelector("select").value;
+            let resultElement = document.getElementById("result");
+    
+            if (num1 === "" || num2 === "") {
+                alert("Please fill in both boxes");
+            } else {
+                num1 = parseFloat(num1);
+                num2 = parseFloat(num2);
+                let result;
+    
+                switch (operation) {
+                    case "Add":
+                        result = num1 + num2;
+                        break;
+                    case "subtract":
+                        result = num1 - num2;
+                        break;
+                    case "divide":
+                        if (num2 === 0) {
+                            alert("Cannot divide by zero");
+                            return;
+                        }
+                        result = num1 / num2;
+                        break;
+                    case "times":
+                        result = num1 * num2;
+                        break;
+                    default:
+                        alert("Invalid operation selected");
+                        return;
+                }
+    
+                resultElement.textContent = `Result: ${result}`;
+            }
+        }
+    </script>
+    
+    </script>
+    
+    
+</body>
+</html>

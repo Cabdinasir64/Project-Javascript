@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <title>To-Do List</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: linear-gradient(
+          to bottom,
+          rgb(121, 208, 242),
+          rgb(176, 161, 161)
+        );
+        overflow: hidden;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 400px;
+        overflow: hidden;
+        background: linear-gradient(
+          to right,
+          rgb(67, 65, 142),
+          rgb(121, 69, 181)
+        );
+        border-radius: 10px;
+        box-shadow: 0 4px 8px 4px rgba(0, 0, 0, 0.3);
+        border: 2px solid #777676;
+        padding: 20px 30px;
+        z-index: -1;
+      }
+
+      .container .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .container .header h1 {
+        color: #fff;
+      }
+
+      .container .header img {
+        width: 40px;
+        height: auto;
+        object-fit: contain;
+      }
+
+      .header2 {
+        width: 100%;
+        max-width: 400px;
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .header2 input {
+        outline: none;
+        border: none;
+        flex: 1;
+        padding: 5px;
+      }
+
+      .header2 button {
+        border: none;
+        border-radius: 6px;
+        padding: 5px 10px;
+        font-size: 18px;
+        color: #fff;
+        background: linear-gradient(to right, rgb(49, 49, 129), rgb(9, 9, 250));
+        cursor: pointer;
+        transition: all 0.5s ease;
+      }
+
+      .header2 button:hover {
+        color: #ffffffef;
+        background: linear-gradient(
+          to right,
+          rgba(49, 49, 129, 0.879),
+          rgba(9, 9, 250, 0.833)
+        );
+      }
+
+      .container ul {
+        list-style-type: none;
+        margin-top: 15px;
+        padding: 5px;
+        max-height: 150px;
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+      }
+
+      .container ul::-webkit-scrollbar {
+        display: none;
+      }
+
+      .container ul li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #e1e2e6;
+        cursor: pointer;
+        width: 100%;
+        border-radius: 8px;
+        border: 1px solid rgba(55, 49, 49, 0.938);
+        padding: 10px;
+        margin: 10px 0;
+      }
+
+      .info {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: center;
+      }
+
+      input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        appearance: none;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s, border-color 0.3s;
+      }
+
+      input[type="checkbox"]:checked {
+        background-color: #4caf50;
+        border-color: #4caf50;
+        background-image: url("images/check_16322725.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      h3 {
+        color: #201f1f;
+      }
+
+      .active {
+        text-decoration: line-through;
+        text-decoration-color: rgba(18, 21, 18, 0.747);
+        text-decoration-thickness: 2px;
+      }
+
+      .icons {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .icon1 {
+        color: #18cf1e;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .icon1:hover {
+        color: #18cf1eac;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .icon2 {
+        color: #e02312;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .icon2:hover {
+        color: #e02312a0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .pop,
+      .pop2 {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px 3px rgba(0, 0, 0, 0.3);
+        padding: 10px 18px;
+        text-align: center;
+        width: 100%;
+        max-width: 300px;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: -150%;
+        left: 50%;
+        transition: all 0.5s ease;
+        z-index: 1;
+      }
+
+      .pop h4 {
+        color: #201f1f;
+        font-size: 1.5rem;
+      }
+
+      .pop .btns {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 12px;
+      }
+
+      .btns button {
+        border-radius: 5px;
+        border: none;
+        padding: 10px 15px;
+        font-size: 24px;
+        cursor: pointer;
+        transition: all 0.5s ease;
+      }
+
+      .btns button:nth-child(1) {
+        background-color: #4caf50;
+        color: #fff;
+      }
+
+      .btns button:nth-child(1):hover {
+        background-color: #4caf4fc1;
+        color: #ffffffe7;
+      }
+
+      .btns button:nth-child(2) {
+        border: 1px solid #ccc;
+      }
+
+      .btns button:nth-child(2):hover {
+        background-color: rgb(225, 16, 16);
+        color: #fff;
+      }
+      .pop2 h4 {
+        font-size: 20px;
+      }
+      .pop2 .btns2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10px;
+        gap: 10px;
+      }
+      .btns2 button {
+        border: 1px solid transparent;
+        padding: 4px 10px;
+        font-size: 18px;
+        border-radius: 6px;
+      }
+      .btns2 button:nth-child(1) {
+        background-color: #4caf50;
+        color: #fff;
+      }
+      .btns2 button:nth-child(1):hover {
+        background-color: #4caf4fb2;
+        color: #ffffffb1;
+      }
+      .btns2 button:nth-child(2) {
+        border: 1px solid #ccc;
+        color: #333;
+      }
+      .btns2 button:nth-child(2):hover {
+        border: 1px solid #ccc;
+        color: #fff;
+        background-color: #a19f9f76;
+      }
+      .pop2 input {
+        margin-top: 5px;
+        border-radius: 4px;
+        padding: 4px;
+        border: 1px solid transparent;
+        outline: none;
+        background-color: #d7e729;
+      }
+      .pop2 input::placeholder {
+        color: #1c1c1c;
+      }
+      .pop2 input:focus {
+        border: 1px solid #0be4f8;
+      }
+
+      .black {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.598);
+        transition: all 0.3s ease;
+        display: none;
+        opacity: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="body">
+      <div class="black"></div>
+      <div class="container">
+        <div class="header">
+          <h1>To-Do <span>List</span></h1>
+          <img src="images/img-header.png" alt="Header Image" />
+        </div>
+        <div class="header2">
+          <input type="text" placeholder="Enter a new task" id="text" />
+          <button onclick="AddTask()">Add</button>
+        </div>
+        <ul id="mylist"></ul>
+      </div>
+    </div>
+    <div class="pop">
+      <h4>Do you need do delete ?</h4>
+      <div class="btns">
+        <button id="btnYes">Yes</button>
+        <button id="btnNo">No</button>
+      </div>
+    </div>
+    <div class="pop2">
+      <h4>Update Task</h4>
+      <input type="text" placeholder="Enter your task" id="text2" />
+      <div class="btns2">
+        <button id="btnYes2">Update</button>
+        <button id="btnNo2">Cancel</button>
+      </div>
+    </div>
+
+    <script>
+      function AddTask() {
+        let input = document.getElementById("text").value.trim();
+        if (input == "") {
+          alert("Please enter your task");
+        } else {
+          let mylist = document.getElementById("mylist");
+          let list = Createlist(input);
+          mylist.appendChild(list);
+          document.getElementById("text").value = "";
+          SaveTask()
+        }
+      }
+
+      function Createlist(input) {
+        let list = document.createElement("li");
+        list.innerHTML = `
+            <div class="info">
+                <input type="checkbox" class="check">
+                <h3>${input}</h3>
+            </div>
+            <div class="icons">
+                <i class="fas fa-edit icon1" onclick="Edit(this)"></i>
+                <i class="fas fa-trash icon2" onclick="Delete(this)"></i>
+            </div>
+            `;
+        let check = list.querySelector(".check");
+        check.addEventListener("change", () => {
+          let h3 = list.querySelector("h3");
+          if (check.checked) {
+            h3.classList.add("active");
+            SaveTask()
+          } else {
+            h3.classList.remove("active");
+            SaveTask()
+          }
+        });
+        return list;
+      }
+
+      function Edit(icon) {
+        let black = document.querySelector(".black");
+        let pop2 = document.querySelector(".pop2");
+        let list = icon.closest("li");
+        let input = list.querySelector("h3");
+        let newinput = document.getElementById("text2");
+        newinput.value = input.textContent.trim();
+        showPopup(black, pop2);
+
+        document.getElementById("btnYes2").onclick = () => {
+          if (newinput.value == "") {
+            alert("Field cannot be empty.");
+          } else {
+            input.textContent = newinput.value;
+            hidePopup(black, pop2);
+            SaveTask()
+          }
+        };
+        document.getElementById("btnNo2").onclick = () => {
+          hidePopup(black, pop2);
+        };
+      }
+
+      function Delete(icon) {
+        let list = icon.closest("li");
+        let black = document.querySelector(".black");
+        let pop = document.querySelector(".pop");
+
+        showPopup(black, pop);
+
+        document.getElementById("btnYes").onclick = () => {
+          list.remove();
+          hidePopup(black, pop);
+          SaveTask()
+        };
+        document.getElementById("btnNo").onclick = () => {
+          hidePopup(black, pop);
+        };
+      }
+
+      function showPopup(black, popup) {
+        black.style.opacity = "1";
+        black.style.display = "block";
+        popup.style.top = "50%";
+      }
+
+      function hidePopup(black, popup) {
+        black.style.opacity = "0";
+        black.style.display = "none";
+        popup.style.top = "-150%";
+      }
+      function SaveTask(){
+        let mylist = document.getElementById("mylist")
+        localStorage.setItem("Data",mylist.innerHTML)
+      }
+      function ShowTask(){
+        let mylist = document.getElementById("mylist")
+        if(localStorage.getItem("Data")){
+          mylist.innerHTML = localStorage.getItem("Data")
+          
+        }
+      }
+      ShowTask()
+    </script>
+  </body>
+</html

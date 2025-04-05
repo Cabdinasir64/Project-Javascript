@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <title>Students CRUD System</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: linear-gradient(
+          to right,
+          rgb(107, 91, 91),
+          rgb(150, 137, 137)
+        );
+        overflow: hidden;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 800px;
+        background-color: #fff;
+        border-radius: 12px;
+        padding: 12px 20px;
+        box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.3);
+        height: 450px;
+      }
+
+      #form,
+      #form2 {
+        padding: 8px 15px;
+        display: grid;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .form-group,
+      .form-group2 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background-color: #0644f0;
+        padding: 8px 12px;
+        border-radius: 12px;
+        width: 400px;
+      }
+
+      #form label,
+      #form2 label {
+        color: #fff;
+        font-weight: 600;
+        text-transform: capitalize;
+        min-width: 80px;
+      }
+
+      #form input,
+      #form2 input {
+        border-radius: 2px;
+        border: none;
+        background-color: transparent;
+        outline: none;
+        color: #fff;
+        padding: 2px 4px;
+      }
+
+      #form input::placeholder,
+      #form2 input::placeholder {
+        color: #ffffffbc;
+      }
+
+      #form button {
+        width: 100%;
+        max-width: 150px;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        padding: 6px 15px;
+        margin: 0 auto;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.5s ease;
+        background: linear-gradient(
+          to left,
+          rgb(255, 235, 133),
+          rgb(162, 238, 248)
+        );
+        color: #1c1c1c;
+        font-weight: bold;
+      }
+
+      #form button:hover {
+        background: linear-gradient(
+          to left,
+          rgba(255, 235, 133, 0.742),
+          rgba(162, 238, 248, 0.742)
+        );
+        border: 1px solid #0644f0;
+        color: #1c1c1cc5;
+      }
+
+      .table-container {
+        margin-top: 10px;
+        max-height: 150px;
+        height: 100%;
+        padding: 13px 15px;
+        overflow-y: scroll;
+      }
+
+      .table-container::-webkit-scrollbar {
+        width: 0;
+      }
+
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .table .header {
+        background-color: #0644f0;
+        color: #fff;
+      }
+
+      .table td,
+      .table th {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+
+      .icons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .icons i {
+        cursor: pointer;
+        transition: all 0.5s ease;
+        font-size: 18px;
+      }
+
+      .icons .icon1 {
+        color: rgb(8, 249, 36);
+      }
+
+      .icons .icon1:hover {
+        color: rgba(8, 249, 36, 0.432);
+      }
+
+      .icons .icon2 {
+        color: rgba(249, 28, 8, 0.986);
+      }
+
+      .icons .icon2:hover {
+        color: rgba(249, 28, 8, 0.404);
+      }
+
+      .pop {
+        width: 100%;
+        max-width: 300px;
+        position: absolute;
+        top: -150%;
+        left: 50%;
+        padding: 10px 15px;
+        transform: translate(-50%, -50%);
+        transition: all 0.5s ease;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px 3px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+      }
+
+      .pop h3 {
+        text-align: center;
+        font-size: 22px;
+      }
+
+      .buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .buttons button {
+        border: none;
+        padding: 5px 10px;
+        font-size: 20px;
+        font-weight: 700;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.5s ease;
+      }
+
+      .buttons button:nth-child(1) {
+        background-color: rgb(20, 243, 8);
+        color: #fff;
+      }
+
+      .buttons button:nth-child(1):hover {
+        background-color: rgba(20, 243, 8, 0.425);
+        color: #ffffff7c;
+      }
+
+      .buttons button:nth-child(2) {
+        background-color: rgb(243, 39, 8);
+        color: #fff;
+      }
+
+      .buttons button:nth-child(2):hover {
+        background-color: rgba(243, 39, 8, 0.521);
+        color: #fff;
+      }
+
+      .pop2 {
+        position: absolute;
+        top: -150%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px 3px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 500px;
+        padding: 15px 25px;
+        transition: all 0.5s ease;
+        z-index: 1;
+      }
+
+      .pop2 h3 {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .buttons2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 10px;
+      }
+
+      .buttons2 button {
+        cursor: pointer;
+        transition: all 0.5s ease;
+        border: 1px solid transparent;
+        padding: 10px 15px;
+        font-size: 20px;
+        border-radius: 8px;
+      }
+
+      .buttons2 button:nth-child(1) {
+        background-color: rgb(85, 243, 7);
+        color: #fff;
+      }
+
+      .buttons2 button:nth-child(1):hover {
+        background-color: rgba(86, 243, 7, 0.598);
+        color: #ffffff7b;
+      }
+
+      .buttons2 button:nth-child(2) {
+        background-color: transparent;
+        border: 1px solid #ccc;
+      }
+
+      .buttons2 button:nth-child(2):hover {
+        background-color: rgba(247, 244, 244, 0.589);
+        border: 1px solid #ccc;
+        color: #1c1c1c97;
+      }
+
+      .black {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.769);
+        opacity: 0;
+        display: none;
+        border: none;
+      }
+      
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div id="form">
+        <div class="form-group">
+          <label for="name">NAME:</label>
+          <input type="text" placeholder="Enter your name" id="name" required />
+        </div>
+        <div class="form-group">
+          <label for="id">ID:</label>
+          <input type="text" placeholder="Enter your id" id="id" required />
+        </div>
+        <div class="form-group">
+          <label for="facult">CLASS:</label>
+          <input
+            type="text"
+            placeholder="Enter your class"
+            id="facult"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="semester">SEMESTER:</label>
+          <input
+            type="number"
+            placeholder="Enter your semester"
+            id="semester"
+            required
+          />
+        </div>
+        <button onclick="AddStudent()">Add Student</button>
+      </div>
+      <div class="black"></div>
+      <div class="table-container">
+        <table class="table">
+          <thead class="header">
+            <tr>
+              <td>#</td>
+              <td>NAME</td>
+              <td>ID</td>
+              <td>CLASS</td>
+              <td>SEMESTER</td>
+              <td>ACTION</td>
+            </tr>
+          </thead>
+
+          <tbody id="table-body"></tbody>
+        </table>
+        <div class="pop" id="pop">
+          <h3>Are you sure to delete ?</h3>
+          <div class="buttons">
+            <button id="yes">Yes</button>
+            <button id="no">NO</button>
+          </div>
+        </div>
+        <div class="pop2" id="pop2">
+          <h3>Update Student Information</h3>
+          <div id="form2">
+            <div class="form-group2">
+              <label for="name2">NAME:</label>
+              <input
+                type="text"
+                placeholder="Enter your name"
+                id="name2"
+                required
+              />
+            </div>
+            <div class="form-group2">
+              <label for="id2">ID:</label>
+              <input
+                type="text"
+                placeholder="Enter your id"
+                id="id2"
+                required
+              />
+            </div>
+            <div class="form-group2">
+              <label for="facult2">CLASS:</label>
+              <input
+                type="text"
+                placeholder="Enter your class"
+                id="facult2"
+                required
+              />
+            </div>
+            <div class="form-group2">
+              <label for="semester2">SEMESTER:</label>
+              <input
+                type="number"
+                placeholder="Enter your semester"
+                id="semester2"
+                required
+              />
+            </div>
+            <div class="buttons2">
+              <button id="save">Update</button>
+              <button id="cancel">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      ShowData()
+      function AddStudent() {
+        let name = document.getElementById("name").value.trim()
+        let id = document.getElementById("id").value.trim()
+        let facult = document.getElementById("facult").value.trim()
+        let semester = document.getElementById("semester").value.trim()
+
+        if (name !== "" && id !== "" && facult !== "" && semester !== "") {
+          if (semester < 1 || semester > 8) {
+            alert("Semester must be a number between 1 and 8.")
+          } else {
+            let TableBody = document.getElementById("table-body");
+            let count = TableBody.getElementsByTagName("tr").length + 1
+            let row = createRow(count, name, id, facult, semester)
+            TableBody.appendChild(row)
+            SaveData()
+            
+            document.getElementById("name").value = ""
+            document.getElementById("id").value = ""
+            document.getElementById("facult").value = ""
+            document.getElementById("semester").value = ""
+            
+          }
+        } else {
+          alert("Please fill the spaces")
+        }
+      }
+
+      function createRow(count, name, id, facult, semester) {
+        let row = document.createElement("tr")
+        row.innerHTML = `
+        <td>${count}</td>
+        <td>${name}</td>
+        <td>${id}</td>
+        <td>${facult}</td>
+        <td>${semester}</td>
+        <td class="icons">
+            <i class="fas fa-edit icon1" onclick="handleEdit(this)"></i>
+            <i class="fas fa-trash icon2" onclick="handleDelete(this)"></i>
+        </td>
+    `;
+        return row
+      }
+
+      function handleEdit(icon) {
+        let row = icon.closest("tr")
+        let black = document.querySelector(".black")
+        let pop2 = document.getElementById("pop2")
+        let updatename = document.getElementById("name2")
+        let updateid = document.getElementById("id2")
+        let updatefacult = document.getElementById("facult2")
+        let updatesemester = document.getElementById("semester2")
+
+        showPopup(black, pop2)
+
+        updatename.value = row.cells[1].textContent.trim()
+        updateid.value = row.cells[2].textContent.trim()
+        updatefacult.value = row.cells[3].textContent.trim()
+        updatesemester.value = row.cells[4].textContent.trim()
+
+        document.getElementById("save").onclick = () => {
+          if (
+            updatename.value.trim() !== "" &&
+            updateid.value.trim() !== "" &&
+            updatefacult.value.trim() !== "" &&
+            updatesemester.value.trim() !== ""
+          ) {
+            if(updatesemester.value < 1 || updatesemester.value > 8) {
+              alert("Semester must be a number between 1 and 8.")
+            } else {
+              row.cells[1].textContent = updatename.value.trim()
+              row.cells[2].textContent = updateid.value.trim()
+              row.cells[3].textContent = updatefacult.value.trim()
+              row.cells[4].textContent = updatesemester.value.trim()
+              hidePopup(black, pop2)
+              SaveData()
+            }
+          } else {
+            alert("Fields cannot be empty.")
+          }
+        }
+
+        document.getElementById("cancel").onclick = () =>
+          hidePopup(black, pop2)
+      }
+
+      function handleDelete(icon) {
+        let row = icon.closest("tr")
+        let black = document.querySelector(".black")
+        let pop = document.getElementById("pop")
+       
+
+        showPopup(black, pop)
+        
+
+        document.getElementById("yes").onclick = () => {
+          document.getElementById("table-body").removeChild(row)
+          hidePopup(black, pop)
+          SaveData()
+        }
+        document.getElementById("no").onclick = () => hidePopup(black, pop)
+      }
+
+      function showPopup(black, popup) {
+        black.style.opacity = "1"
+        black.style.display = "block"
+        popup.style.top = "50%"
+      }
+
+      function hidePopup(black, popup) {
+        black.style.opacity = "0"
+        black.style.display = "none"
+        popup.style.top = "-150%"
+      }
+      function SaveData(){
+        let TableBody = document.getElementById("table-body")
+        localStorage.setItem("Data",TableBody.innerHTML)
+      }
+      function ShowData(){
+        let TableBody = document.getElementById("table-body")
+        if(localStorage.getItem("Data")){
+          TableBody.innerHTML = localStorage.getItem("Data")
+
+        }
+      }
+    </script>
+  </body>
+</html>

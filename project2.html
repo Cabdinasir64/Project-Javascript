@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Country Search API</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+      width: 300px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .header{
+      display: grid;
+      grid-template-columns: 4fr 1fr;
+      gap: 7px;
+    }
+    .header input{
+      outline: none;
+      border: none;
+      background-color: transparent;
+      border-bottom: 2px solid rgb(24, 24, 216);
+    }
+    .header button{
+      padding: 8px;
+      border: none;
+      cursor: pointer;
+      border-radius: 7px;
+      color: #fff;
+      background-color:rgb(24, 24, 216) ;
+    }
+    button:hover{
+      color: #ebe2e2;
+      background-color:rgb(43, 43, 198) ;
+
+    }
+    #result {
+      margin-top: 20px;
+    }
+
+    .flag {
+      width: 100px;
+      height: auto;
+    }
+
+    .info {
+      margin: 10px 0;
+    }
+
+    p {
+      text-align: center;
+      color: rgb(194, 85, 85);
+      text-transform: capitalize;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <input type="text" id="search" placeholder="Enter country name...">
+      <button id="searchBtn">Search</button>
+    </div>
+    <div id="result"></div>
+  </div>
+  <script>
+    document.getElementById("searchBtn").addEventListener("click", function () {
+      const countryName = document.getElementById("search").value.trim();
+      const resultDiv = document.getElementById("result");
+
+      if (countryName.length == 0 || countryName.length <= 2  || countryName === "" ) {
+        resultDiv.innerHTML = "<p>Please enter a country name.</p>";
+        return;
+      }
+
+      fetch("https://restcountries.com/v3.1/name/${countryName}")
+        .then(response => {
+          if (!response.ok) {
+            resultDiv.innerHTML = "<p> Enter Country Name";
+          }
+          return response.json();
+        })
+        .then(data => {
+          const country = data[0];
+          resultDiv.innerHTML = `
+            <img src="${country.flags.png}" alt="Flag of ${country.name.common}" class="flag">
+            <div class="info"><strong>Country:</strong> ${country.name.common}</div>
+            <div class="info"><strong>Capital:</strong> ${country.capital ? country.capital[0] : "N/A"}</div>
+            <div class="info"><strong>Continent:</strong> ${country.region}</div>
+            <div class="info"><strong>Population:</strong> ${country.population.toLocaleString()}</div>
+            <div class="info"><strong>Currency:</strong> ${Object.values(country.currencies)[0].name} (${Object.values(country.currencies)[0].symbol})</div>
+          `;
+        })
+        .catch(error => {
+          resultDiv.innerHTML = <p>Country Not found.</p>;
+        });
+    });
+  </script>
+</body>
+</htmlàl>

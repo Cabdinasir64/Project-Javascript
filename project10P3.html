@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management System - Login</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="container max-w-md mx-auto">
+        <!-- Login Form -->
+        <form id="form1" class="bg-white p-8 rounded-lg shadow-lg">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800">Login</h2>
+                <p class="text-gray-600 mt-2">Welcome back! Please login to your account.</p>
+            </div>
+
+            <div class="space-y-4">
+                <div class="form-control">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                        Username
+                    </label>
+                    <div class="relative">
+                        <input type="text" id="username" 
+                               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                               placeholder="Enter your username">
+                        <i class="fas fa-check-circle text-green-500 absolute right-3 top-3 hidden"></i>
+                        <i class="fas fa-exclamation-circle text-red-500 absolute right-3 top-3 hidden"></i>
+                    </div>
+                    <small class="text-red-500 text-xs mt-1 hidden">Error message</small>
+                </div>
+
+                <div class="form-control">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                        Password
+                    </label>
+                    <div class="relative">
+                        <input type="password" id="password" 
+                               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                               placeholder="Enter your password">
+                        <i class="fas fa-check-circle text-green-500 absolute right-3 top-3 hidden"></i>
+                        <i class="fas fa-exclamation-circle text-red-500 absolute right-3 top-3 hidden"></i>
+                    </div>
+                    <small class="text-red-500 text-xs mt-1 hidden">Error message</small>
+                </div>
+            </div>
+
+            <button type="submit" 
+                    class="w-full bg-blue-500 text-white py-2 rounded-lg mt-6 hover:bg-blue-600 transition-colors">
+                Login
+            </button>
+
+            <div class="mt-6 text-center space-y-2">
+                <a href="#" class="text-blue-500 hover:text-blue-600 text-sm">Forgot Password?</a>
+                <p class="text-gray-600 text-sm">
+                    Don't have an account? 
+                    <a href="#" id="Signup" class="text-blue-500 hover:text-blue-600 font-medium">Create Account</a>
+                </p>
+            </div>
+        </form>
+
+        <!-- Registration Form -->
+        <form id="form2" class="bg-white p-8 rounded-lg shadow-lg hidden">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800">Create Account</h2>
+                <p class="text-gray-600 mt-2">Please fill in the information below</p>
+            </div>
+
+            <div class="space-y-4">
+                <div class="form-control">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="rusername">
+                        Username
+                    </label>
+                    <div class="relative">
+                        <input type="text" id="rusername" 
+                               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                               placeholder="Choose a username">
+                        <i class="fas fa-check-circle text-green-500 absolute right-3 top-3 hidden"></i>
+                        <i class="fas fa-exclamation-circle text-red-500 absolute right-3 top-3 hidden"></i>
+                    </div>
+                    <small class="text-red-500 text-xs mt-1 hidden">Error message</small>
+                </div>
+
+                <div class="form-control">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="remail">
+                        Email
+                    </label>
+                    <div class="relative">
+                        <input type="email" id="remail" 
+                               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                               placeholder="Enter your email">
+                        <i class="fas fa-check-circle text-green-500 absolute right-3 top-3 hidden"></i>
+                        <i class="fas fa-exclamation-circle text-red-500 absolute right-3 top-3 hidden"></i>
+                    </div>
+                    <small class="text-red-500 text-xs mt-1 hidden">Error message</small>
+                </div>
+
+                <div class="form-control">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="rpassword">
+                        Password
+                    </label>
+                    <div class="relative">
+                        <input type="password" id="rpassword" 
+                               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                               placeholder="Create a password">
+                        <i class="fas fa-check-circle text-green-500 absolute right-3 top-3 hidden"></i>
+                        <i class="fas fa-exclamation-circle text-red-500 absolute right-3 top-3 hidden"></i>
+                    </div>
+                    <small class="text-red-500 text-xs mt-1 hidden">Error message</small>
+                </div>
+
+                <div class="form-control">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="rpasswordconfirm">
+                        Confirm Password
+                    </label>
+                    <div class="relative">
+                        <input type="password" id="rpasswordconfirm" 
+                               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                               placeholder="Confirm your password">
+                        <i class="fas fa-check-circle text-green-500 absolute right-3 top-3 hidden"></i>
+                        <i class="fas fa-exclamation-circle text-red-500 absolute right-3 top-3 hidden"></i>
+                    </div>
+                    <small class="text-red-500 text-xs mt-1 hidden">Error message</small>
+                </div>
+            </div>
+
+            <button type="submit" 
+                    class="w-full bg-blue-500 text-white py-2 rounded-lg mt-6 hover:bg-blue-600 transition-colors">
+                Create Account
+            </button>
+
+            <div class="mt-6 text-center">
+                <p class="text-gray-600 text-sm">
+                    Already have an account? 
+                    <a href="#" id="Signin" class="text-blue-500 hover:text-blue-600 font-medium">Login</a>
+                </p>
+            </div>
+        </form>
+    </div>
+
+    <!-- Keep your existing JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Form switching logic
+            document.getElementById("Signup").addEventListener("click", () => {
+                document.getElementById("form1").classList.add("hidden");
+                document.getElementById("form2").classList.remove("hidden");
+            });
+
+            document.getElementById("Signin").addEventListener("click", () => {
+                document.getElementById("form1").classList.remove("hidden");
+                document.getElementById("form2").classList.add("hidden");
+            });
+
+            // Form validation functions
+            function setErrorFor(input, message) {
+                const formControl = input.parentElement.parentElement;
+                const small = formControl.querySelector('small');
+                const errorIcon = formControl.querySelector('.fa-exclamation-circle');
+                const successIcon = formControl.querySelector('.fa-check-circle');
+                
+                // Show error message
+                small.innerText = message;
+                small.classList.remove('hidden');
+                
+                // Show error icon
+                errorIcon.classList.remove('hidden');
+                successIcon.classList.add('hidden');
+                
+                // Add error class
+                input.classList.add('border-red-500');
+                input.classList.remove('border-green-500');
+            }
+
+            function setSuccessFor(input) {
+                const formControl = input.parentElement.parentElement;
+                const small = formControl.querySelector('small');
+                const errorIcon = formControl.querySelector('.fa-exclamation-circle');
+                const successIcon = formControl.querySelector('.fa-check-circle');
+                
+                // Hide error message
+                small.classList.add('hidden');
+                
+                // Show success icon
+                errorIcon.classList.add('hidden');
+                successIcon.classList.remove('hidden');
+                
+                // Add success class
+                input.classList.remove('border-red-500');
+                input.classList.add('border-green-500');
+            }
+
+            function isEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            }
+
+            // Login Form Handler
+            document.getElementById('form1').addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const username = document.getElementById('username');
+                const password = document.getElementById('password');
+                let isValid = true;
+
+                // Username validation
+                if(username.value.trim() === '') {
+                    setErrorFor(username, 'Username cannot be blank');
+                    isValid = false;
+                } else {
+                    setSuccessFor(username);
+                }
+
+                // Password validation
+                if(password.value.trim() === '') {
+                    setErrorFor(password, 'Password cannot be blank');
+                    isValid = false;
+                } else {
+                    setSuccessFor(password);
+                }
+
+                if(isValid) {
+                    // Check credentials against localStorage
+                    const users = JSON.parse(localStorage.getItem('users')) || [];
+                    const user = users.find(u => 
+                        u.username === username.value.trim() && 
+                        u.password === password.value.trim()
+                    );
+
+                    if(user) {
+                        // Store current user
+                        localStorage.setItem('currentUser', JSON.stringify(user));
+                        
+                        // Show success message and redirect
+                        const successDiv = document.createElement('div');
+                        successDiv.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-500 translate-y-0';
+                        successDiv.textContent = 'Login successful! Redirecting...';
+                        document.body.appendChild(successDiv);
+
+                        setTimeout(() => {
+                            window.location.href = 'project10P2.html';
+                        }, 1500);
+                    } else {
+                        const errorDiv = document.createElement('div');
+                        errorDiv.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-500 translate-y-0';
+                        errorDiv.textContent = 'Invalid username or password';
+                        document.body.appendChild(errorDiv);
+
+                        setTimeout(() => {
+                            errorDiv.remove();
+                        }, 3000);
+                    }
+                }
+            });
+
+            // Registration Form Handler
+            document.getElementById('form2').addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const username = document.getElementById('rusername');
+                const email = document.getElementById('remail');
+                const password = document.getElementById('rpassword');
+                const passwordConfirm = document.getElementById('rpasswordconfirm');
+                let isValid = true;
+
+                // Username validation
+                if(username.value.trim() === '') {
+                    setErrorFor(username, 'Username cannot be blank');
+                    isValid = false;
+                } else if(username.value.trim().length < 6) {
+                    setErrorFor(username, 'Username must be at least 6 characters');
+                    isValid = false;
+                } else {
+                    setSuccessFor(username);
+                }
+
+                // Email validation
+                if(email.value.trim() === '') {
+                    setErrorFor(email, 'Email cannot be blank');
+                    isValid = false;
+                } else if(!isEmail(email.value.trim())) {
+                    setErrorFor(email, 'Email is not valid');
+                    isValid = false;
+                } else {
+                    setSuccessFor(email);
+                }
+
+                // Password validation
+                if(password.value.trim() === '') {
+                    setErrorFor(password, 'Password cannot be blank');
+                    isValid = false;
+                } else if(password.value.trim().length < 6) {
+                    setErrorFor(password, 'Password must be at least 6 characters');
+                    isValid = false;
+                } else {
+                    setSuccessFor(password);
+                }
+
+                // Password confirmation validation
+                if(passwordConfirm.value.trim() === '') {
+                    setErrorFor(passwordConfirm, 'Please confirm your password');
+                    isValid = false;
+                } else if(passwordConfirm.value.trim() !== password.value.trim()) {
+                    setErrorFor(passwordConfirm, 'Passwords do not match');
+                    isValid = false;
+                } else {
+                    setSuccessFor(passwordConfirm);
+                }
+
+                if(isValid) {
+                    // Check if username or email already exists
+                    const users = JSON.parse(localStorage.getItem('users')) || [];
+                    if(users.some(user => user.username === username.value.trim())) {
+                        setErrorFor(username, 'Username already exists');
+                        return;
+                    }
+                    if(users.some(user => user.email === email.value.trim())) {
+                        setErrorFor(email, 'Email already exists');
+                        return;
+                    }
+
+                    // Add new user
+                    const newUser = {
+                        username: username.value.trim(),
+                        email: email.value.trim(),
+                        password: password.value.trim()
+                    };
+                    users.push(newUser);
+                    localStorage.setItem('users', JSON.stringify(users));
+
+                    // Show success message
+                    const successDiv = document.createElement('div');
+                    successDiv.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-500 translate-y-0';
+                    successDiv.textContent = 'Registration successful! Please login.';
+                    document.body.appendChild(successDiv);
+
+                    // Reset form and switch to login
+                    document.getElementById('form2').reset();
+                    setTimeout(() => {
+                        successDiv.remove();
+                        document.getElementById("form2").classList.add("hidden");
+                        document.getElementById("form1").classList.remove("hidden");
+                    }, 1500);
+                }
+            });
+
+            // Check if user is already logged in
+            const currentUser = localStorage.getItem('currentUser');
+            if(currentUser) {
+                window.location.href = 'project10P2.html';
+            }
+        });
+
+        // Utility function for checking auth status (use in project10P2.html)
+        function checkAuth() {
+            const currentUser = localStorage.getItem('currentUser');
+            if(!currentUser) {
+                window.location.href = 'project10P3.html';
+            }
+            return JSON.parse(currentUser);
+        }
+
+        // Logout function (use in project10P2.html)
+        function handleLogout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'project10P3.html';
+        }
+    </script>
+
+</body>
+
+</html>

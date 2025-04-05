@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <title>Register/Login</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        background-color: rgba(204, 254, 255, 0.867);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+      }
+      button {
+        border: none;
+        padding: 10px 20px;
+        font-size: 18px;
+        background-color: rgb(11, 11, 241);
+        color: #fff;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.1);
+      }
+      button:hover {
+        background-color: rgba(11, 11, 241, 0.779);
+        color: #ffffffc3;
+      }
+      .pop1 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        display: none;
+      }
+      .pop1 form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        width: 400px;
+        text-align: center;
+      }
+      .pop1 h3 {
+        margin-bottom: 20px;
+        color: #333;
+      }
+      .form-group {
+        margin-bottom: 15px;
+        text-align: left;
+      }
+      .form-group label {
+        display: block;
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 5px;
+      }
+      .form-group input {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        outline: none;
+        transition: border-color 0.3s ease;
+      }
+      .form-group input:focus {
+        border-color: rgb(11, 11, 241);
+      }
+      .pop1 button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: rgb(11, 11, 241);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .pop1 button:hover {
+        background-color: rgba(11, 11, 241, 0.8);
+      }
+      .pop1 i {
+        position: absolute;
+        top: 13%;
+        left: 65%;
+        background-color: #fff;
+        color: #333;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+      .pop2 {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+      .pop2 .form2 {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        width: 400px;
+        text-align: center;
+      }
+      .pop2 h3 {
+        margin-bottom: 20px;
+        color: #333;
+      }
+      .pop2 .form-group2 {
+        margin-bottom: 15px;
+        text-align: left;
+      }
+      .pop2 .form-group2 label {
+        display: block;
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 5px;
+      }
+      .pop2 .form-group2 input {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        outline: none;
+        transition: border-color 0.3s ease;
+      }
+      .pop2 .form-group2 input:focus {
+        border-color: rgb(11, 11, 241);
+      }
+      .pop2 button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: rgb(11, 11, 241);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .pop2 button:hover {
+        background-color: rgba(11, 11, 241, 0.8);
+      }
+
+      #btn2 {
+        border: none;
+        padding: 10px 20px;
+        font-size: 18px;
+        background-color: rgb(34, 193, 195);
+        color: #fff;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.1);
+        display: none;
+      }
+      #btn2:hover {
+        background-color: rgba(34, 193, 195, 0.8);
+        color: #ffffffc3;
+      }
+      .pop2 i {
+        position: absolute;
+        top: 16%;
+        left: 65%;
+        background-color: #fff;
+        color: #333;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+      footer {
+        margin: 15px 0;
+      }
+      .footer-content {
+        display: grid;
+        grid-template-rows: 1fr;
+        justify-content: center;
+        align-items: center;
+      }
+
+      footer h3 {
+        font-size: 18px;
+        color: #333;
+      }
+
+      footer span {
+        cursor: pointer;
+        font-size: 18px;
+        color: #007bff;
+        font-weight: bold;
+        transition: color 0.3s ease;
+      }
+
+      footer span:hover {
+        color: #0056b3;
+      }
+      .container {
+        width: 100%;
+        max-width: 400px;
+        padding: 10px 15px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #694646;
+        border-bottom: 0 4px 8px rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        height: 200px;
+        display: none;
+      }
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 2px 10px;
+      }
+      .header h2 {
+        color: #fff;
+      }
+      .header i {
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .container h5 {
+        text-align: center;
+        color: #fff;
+        font-size: 20px;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="btn1">Register</button>
+
+    <div class="pop1" id="modal">
+      <form>
+        <h3>Create Account</h3>
+        <i class="fas fa-times" id="cancel1"></i>
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" placeholder="Username" id="username" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" placeholder="Email" id="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            placeholder="Password"
+            id="password"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="passwordRepeat">Password Repeat:</label>
+          <input
+            type="password"
+            placeholder="Password Repeat"
+            id="passwordRepeat"
+            required
+          />
+        </div>
+        <button onclick="Register(event)">Submit</button>
+      </form>
+    </div>
+    <div class="pop2">
+      <form class="form2">
+        <h3>Login Account</h3>
+        <i class="fas fa-times" id="cancel2"></i>
+        <div class="form-group2">
+          <label for="usernamelogin">Username:</label>
+          <input
+            type="text"
+            placeholder="Username"
+            id="usernamelogin"
+            required
+          />
+        </div>
+        <div class="form-group2">
+          <label for="passwordlogin">Password:</label>
+          <input
+            type="password"
+            placeholder="Password"
+            id="passwordlogin"
+            required
+          />
+        </div>
+        <button onclick="Login(event)">Login</button>
+        <footer>
+          <div class="footer-content">
+            <h3>Don't have account?</h3>
+            <span id="btn4">Register</span>
+          </div>
+        </footer>
+      </form>
+    </div>
+
+    <div class="container">
+      <div class="header">
+        <h2>Dhasboard</h2>
+        <i class="fa fa-sign-out" id="btn5"></i>
+      </div>
+      <h5 id="result"></h5>
+    </div>
+
+    <button id="btn2">Login</button>
+
+    <script>
+      document.getElementById("btn1").addEventListener("click", () => {
+        let pop1 = document.querySelector(".pop1");
+        let cancel1 = document.getElementById("cancel1");
+        pop1.style.display = "flex";
+        cancel1.addEventListener("click", () => {
+          pop1.style.display = "none";
+        });
+      });
+
+    
+      function Register(event) {
+        event.preventDefault();
+        let username = document.getElementById("username").value.trim();
+        let email = document.getElementById("email").value.trim();
+        let password = document.getElementById("password").value.trim();
+        let passwordrepeat = document
+          .getElementById("passwordRepeat")
+          .value.trim();
+
+        let users = JSON.parse(localStorage.getItem("users") || "[]");
+
+        if (!username || !email || !password || !passwordrepeat) {
+          alert("Please fill the spaces");
+        } else if (users.some((user) => user.username === username)) {
+          alert("Username already taken!");
+        } else if (users.some((user) => user.email === email)) {
+          alert("Email is already in use!");
+        } else if (password !== passwordrepeat) {
+          alert("Passwords do not match!");
+        } else {
+          users.push({ username, email, password });
+          localStorage.setItem("users", JSON.stringify(users));
+          alert("Account created successfully!");
+          let pop1 = document.querySelector(".pop1");
+          let btn1 = document.getElementById("btn1");
+          let btn2 = document.getElementById("btn2");
+          pop1.style.display = "none";
+          btn1.style.display = "none";
+          btn2.style.display = "block";
+        }
+      }
+
+    
+      document.getElementById("btn2").addEventListener("click", () => {
+        let pop2 = document.querySelector(".pop2");
+        let cancel12 = document.getElementById("cancel2");
+        pop2.style.display = "flex";
+        cancel12.addEventListener("click", () => {
+          pop2.style.display = "none";
+        });
+      });
+
+      
+      function Login(event) {
+        event.preventDefault();
+
+        let LoginUsername = document
+          .getElementById("usernamelogin")
+          .value.trim();
+        let Loginpassword = document
+          .getElementById("passwordlogin")
+          .value.trim();
+
+        if (LoginUsername === "" || Loginpassword === "") {
+          alert("Please fill the spaces");
+          return;
+        }
+
+        let users = JSON.parse(localStorage.getItem("users") || "[]");
+
+        let userFounds = users.find(
+          (user) =>
+            user.username === LoginUsername && user.password === Loginpassword
+        );
+        if (!userFounds) {
+          alert("Username and password incorrect!");
+        } else {
+          localStorage.setItem("loggedInUsername", userFounds.username);
+
+          let result = document.getElementById("result");
+          result.textContent =` Welcome ${userFounds.username}!`;
+          let pop2 = document.querySelector(".pop2");
+          let container = document.querySelector(".container");
+          container.style.display = "block";
+          pop2.style.display = "none";
+        }
+      }
+
+    
+      document.addEventListener("DOMContentLoaded", () => {
+        let users = JSON.parse(localStorage.getItem("users") || "[]");
+        let result = document.getElementById("result");
+
+        let loggedInUsername = localStorage.getItem("loggedInUsername");
+
+        if (loggedInUsername) {
+          let user = users.find((user) => user.username === loggedInUsername);
+          if (user) {
+            result.textContent = `Welcome ${user.username}!`;
+          }
+        }
+
+        let container = document.querySelector(".container");
+        container.style.display = "none";
+        let btn2 = document.getElementById("btn2")
+        let btn1 = document.getElementById("btn1");
+        btn2.style.display = "block"
+        btn1.style.display = "none"
+      });
+
+      document.getElementById("btn5").addEventListener("click", () => {
+        localStorage.removeItem("loggedInUsername");
+
+        let container = document.querySelector(".container");
+        container.style.display = "none";
+
+        let btn2 = document.getElementById("btn2");
+        let btn1 = document.getElementById("btn1");
+        btn2.style.display = "block";
+        btn1.style.display = "none";
+      });
+
+      document.getElementById("btn4").addEventListener("click", () => {
+        let pop2 = document.querySelector(".pop2");
+        let pop1 = document.querySelector(".pop1");
+        pop1.style.display = "flex";
+        pop2.style.display = "none";
+        document.getElementById("cancel1").addEventListener("click", () => {
+          pop1.style.display = "none";
+        });
+      });
+    </script>
+  </body>
+</html>

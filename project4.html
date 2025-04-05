@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <title>Stop Watch</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(225, 230, 232);
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 100%;
+            max-width: 400px;
+            padding: 50px;
+            background: linear-gradient(to right, rgb(37, 164, 243), rgb(189, 145, 189));
+            border-radius: 12px;
+            box-shadow: 0 4px 15px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .container h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 40px;
+            margin-top: 20px;
+            align-items: center;
+            justify-content: center;
+            margin: 5px;
+        }
+
+        .buttons i {
+            font-size: 3rem;
+            cursor: pointer;
+            transition: transform 0.2s, color 0.2s;
+        }
+
+        .buttons .play {
+            color: rgb(31, 250, 71);
+            position: relative;
+            transform: scale(1.2);
+        }
+
+        .play::after {
+            content: 'Play';
+            position: absolute;
+            top: 140%;
+            color: #fff;
+            font-size: 24px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: all 0.5s ease;     
+        }
+        .play:hover::after {
+            opacity: 1;  
+        }
+        .pause::after {
+            content: 'pause';
+            position: absolute;
+            top: 140%;
+            color: #fff;
+            font-size: 12px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: all 0.5s ease;     
+        }
+        .pause:hover::after {
+            opacity: 1;  
+        }
+        .reset::after {
+            content: 'reset';
+            position: absolute;
+            top: 140%;
+            color: #fff;
+            font-size: 12px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: all 0.5s ease;     
+        }
+        .reset:hover::after {
+            opacity: 1;  
+        }
+
+        .buttons .pause {
+            color: rgb(255, 192, 48);
+            font-size: 2rem;
+        }
+
+        .buttons .reset {
+            color: rgb(255, 85, 85);
+            font-size: 2rem;
+        }
+
+        .buttons i:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 id="displaytime">00:00:00</h1>
+        <div class="buttons">
+            <i class="fa fa-pause pause" onclick="PauseWatch()"></i>
+            <i class="fa fa-play play" onclick="playWatch()"></i>
+            <i class="fa fa-refresh reset" onclick="ResetWatch()"></i>
+        </div>
+    </div>
+
+    
+
+    <script>
+        let DisplayTime = document.getElementById("displaytime")
+        let [hours, minute,second] = [0,0,0]
+        let timer = null
+
+        let Watch = () => {
+            second++
+            if(second == 60){
+                second = 0
+                minute++
+                if(minute == 60){
+                    minute = 0
+                    hours++
+                }
+            }
+            let h = hours < 10 ? "0" + hours : hours
+            let m = minute < 10 ? "0" + minute : minute
+            let s = second < 10 ? "0" + second : second
+            DisplayTime.innerHTML = h +":"+ m +":"+ s
+        }
+        let playWatch = () => {
+            if(timer!== null){
+                clearInterval(timer)
+            }
+            timer = setInterval(Watch,100)
+        }
+        let PauseWatch = () => {
+            clearInterval(timer)
+        }
+        let ResetWatch = () => {
+            [hours, minute,second] = [0,0,0]
+            DisplayTime.innerHTML = "00:00:00"
+
+        }
+    </script>
+</body>
+
+</html>
